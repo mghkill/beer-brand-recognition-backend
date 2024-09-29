@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  api:
+    build: 
+      context: ./Microservice_Flask  # Caminho para o diretório onde está o Dockerfile
+      dockerfile: Dockerfile  # Nome do Dockerfile
+    ports:
+      - "5000:5000"  # Mapeia a porta 5000 do contêiner para a porta 5000 do host
+    environment:
+      - FLASK_ENV=development  # Configuração de ambiente, opcional
+    volumes:
+      - ./Microservice_Flask:/api  # Monta o diretório do serviço
+
