@@ -9,6 +9,8 @@ ENV TZ="America/Sao_Paulo"
 # Definir o diretório de trabalho
 WORKDIR /apiNode
 
+COPY package*.json ./
+
 COPY . .
 
 # Remover node_modules se existir
