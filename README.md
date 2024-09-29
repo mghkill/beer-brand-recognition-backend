@@ -1,1 +1,0 @@
-# beer-brand-recognition-backend
