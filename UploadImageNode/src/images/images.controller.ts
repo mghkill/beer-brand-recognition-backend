@@ -21,7 +21,7 @@ export class ImagesController {
   }
 
   @Get()
-  findAll(){
+  findAll() {
     return this.imagesService.findAll();
   }
 }
