@@ -7,7 +7,7 @@ import { ImageSchema } from './Mongo/Schemas/image.schema';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/ImageDatabase'),
+    MongooseModule.forRoot('mongodb://mongo:27017/DBImage'),
     MongooseModule.forFeature([{ name: 'image', schema: ImageSchema }]),
   ],
   controllers: [ImagesController],
