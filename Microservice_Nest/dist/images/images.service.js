@@ -34,7 +34,7 @@ let ImagesService = class ImagesService {
             contentType: file.mimetype,
         });
         try {
-            const response = await axios_1.default.post('http://127.0.0.1:5000/upload', formData);
+            const response = await axios_1.default.post('http://api:5000/upload', formData);
             responseText = response.data.Text;
             console.log(responseText);
         }

@@ -19,7 +19,7 @@ exports.ImagesModule = ImagesModule;
 exports.ImagesModule = ImagesModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/DBImage'),
+            mongoose_1.MongooseModule.forRoot('mongodb://mongo:27017/DBImage'),
             mongoose_1.MongooseModule.forFeature([{ name: 'image', schema: image_schema_1.ImageSchema }]),
         ],
         controllers: [images_controller_1.ImagesController],
