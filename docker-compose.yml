@@ -3,33 +3,33 @@ version: '3.8'
 services:
   api:
     build: 
-      context: ./Microservice_Flask  # Caminho para o diretório onde está o Dockerfile do Flask
-      dockerfile: Dockerfile  # Nome do Dockerfile do Flask
+      context: ./Microservice_Flask   
+      dockerfile: Dockerfile   
     ports:
-      - "5000:5000"  # Mapeia a porta 5000 do contêiner para a porta 5000 do host
+      - "5000:5000"   
     environment:
-      - FLASK_ENV=development  # Configuração de ambiente, opcional
+      - FLASK_ENV=development  
     volumes:
-      - ./Microservice_Flask:/api  # Monta o diretório do serviço
+      - ./Microservice_Flask:/api   
     networks:
-      - ImageDatabase  # Adiciona o serviço à rede
-
+      - ImageDatabase   
+ 
   mongo:
-    image: mongo  # Usa a imagem oficial do MongoDB
+    image: mongo   
     networks:
-      - ImageDatabase  # Adiciona o serviço à rede
+      - ImageDatabase  
     ports:
-      - "27017:27017"  # Mapeia a porta do MongoDB
-    restart: always  # Reinicia o container automaticamente se falhar
+      - "27017:27017"   
+    restart: always   
 
   api-node:
     build:
-      context: ./Microservice_Nest  # Caminho para o diretório onde está o Dockerfile do Node.js
-      dockerfile: Dockerfile  # Nome do Dockerfile do Node.js
+      context: ./Microservice_Nest  
+      dockerfile: Dockerfile   
     ports:
-      - "3333:3333"  # Mapeia a porta 3333 do contêiner para a porta 3333 do host
+      - "3333:3333"   
     networks:
-      - ImageDatabase  # Adiciona o serviço à rede
-
+      - ImageDatabase  
+ 
 networks:
   ImageDatabase:  # Define a rede

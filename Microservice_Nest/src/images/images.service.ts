@@ -1,17 +1,20 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import * as path from 'path';
+const fs = require("fs");
+const path = require("path");
 import { ImageRepository } from './Mongo/Repositories/image.repository';
 import { ImageDto } from './DTO/image-dto/image-dto';
+import axios from 'axios';
+import { beerBrands } from './infoData';
+import * as FormData from 'form-data';
 
 @Injectable()
 export class ImagesService {
   constructor(private readonly repository: ImageRepository) {}
 
+
   async saveFile(file: Express.Multer.File): Promise<ImageDto> {
-    const uploadDir = path.join(__dirname, '../../src/images/uploads');
-    const uploadPath = path.join(uploadDir, file.originalname);
     const validExtensions = /\.(jpg|jpeg|png|gif)$/i;
+    let responseText: any;
 
     if (!file.originalname.match(validExtensions)) {
       throw new BadRequestException(
@@ -19,24 +22,68 @@ export class ImagesService {
       );
     }
 
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    const formData = new FormData();
+    formData.append('file', file.buffer, {
+      filename: file.originalname,
+      contentType: file.mimetype,
+    });
+
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:5000/upload',
+        formData,
+      );
+      responseText = response.data.Text;
+      console.log(responseText)
+    } catch (error) {
+      console.error(
+        'Erro ao fazer upload:',
+        error.response?.data || error.message,
+      );
     }
 
-    fs.writeFileSync(uploadPath, file.buffer);
+    const resultado = beerBrands.filter((marca) =>
+      new RegExp(marca, 'i').test(responseText),
+    );
 
-    const brandName = file.originalname;
+ 
+
+ 
+   const brandName =
+     (resultado.length > 0 && resultado[0]) ||
+     (resultado.length === 0 && responseText.trim() !== '' && responseText) ||
+     (resultado.length === 0 && responseText.trim() === '' && 'Brand not found');
+
     const currentTime = new Date();
 
-    await this.repository.uploadFile(brandName, currentTime);
+    const image = await this.repository.uploadFile(
+      brandName,
+      currentTime,
+      file.buffer,
+    );
+    console.log(image)
 
-    const responseDto = new ImageDto(brandName, currentTime);
+    const responseDto = new ImageDto(
+      undefined,
+      brandName,
+      currentTime,
+      file.buffer,
+    );
+
+    /* Set Class no DTO */
     responseDto.message = 'File uploaded successfully';
-    responseDto.path = uploadPath;
+    responseDto.textImage = responseText;
+    responseDto.file = await this.repository.getFile(brandName, currentTime);
 
     const records = await this.repository.getAllRecords();
     responseDto.allRecords = records.map(
-      (record) => new ImageDto(record.brandName, record.timestamp),
+      (record) =>
+        new ImageDto(
+          record.id,
+          record.brandName,
+          record.timestamp,
+          record.file,
+        ),
     );
 
     return responseDto;
@@ -44,8 +91,15 @@ export class ImagesService {
 
   async findAll(): Promise<ImageDto[]> {
     const records = await this.repository.getAllRecords();
-    return records.map(
-      (record) => new ImageDto(record.brandName, record.timestamp),
+    const responseDto = records.map(
+      (record) =>
+        new ImageDto(
+          record.id,
+          record.brandName,
+          record.timestamp,
+          record.file,
+        ),
     );
+    return responseDto;
   }
 }

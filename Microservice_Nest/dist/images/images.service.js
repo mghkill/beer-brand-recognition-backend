@@ -15,34 +15,51 @@ const fs = require("fs");
 const path = require("path");
 const image_repository_1 = require("./Mongo/Repositories/image.repository");
 const image_dto_1 = require("./DTO/image-dto/image-dto");
+const axios_1 = require("axios");
+const infoData_1 = require("./infoData");
+const FormData = require("form-data");
 let ImagesService = class ImagesService {
     constructor(repository) {
         this.repository = repository;
     }
     async saveFile(file) {
-        const uploadDir = path.join(__dirname, '../../src/images/uploads');
-        const uploadPath = path.join(uploadDir, file.originalname);
         const validExtensions = /\.(jpg|jpeg|png|gif)$/i;
+        let responseText;
         if (!file.originalname.match(validExtensions)) {
             throw new common_1.BadRequestException('Only image files (jpg, jpeg, png, gif) are allowed');
         }
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
+        const formData = new FormData();
+        formData.append('file', file.buffer, {
+            filename: file.originalname,
+            contentType: file.mimetype,
+        });
+        try {
+            const response = await axios_1.default.post('http://127.0.0.1:5000/upload', formData);
+            responseText = response.data.Text;
+            console.log(responseText);
         }
-        fs.writeFileSync(uploadPath, file.buffer);
-        const brandName = file.originalname;
+        catch (error) {
+            console.error('Erro ao fazer upload:', error.response?.data || error.message);
+        }
+        const resultado = infoData_1.beerBrands.filter((marca) => new RegExp(marca, 'i').test(responseText));
+        const brandName = (resultado.length > 0 && resultado[0]) ||
+            (resultado.length === 0 && responseText.trim() !== '' && responseText) ||
+            (resultado.length === 0 && responseText.trim() === '' && 'Brand not found');
         const currentTime = new Date();
-        await this.repository.uploadFile(brandName, currentTime);
-        const responseDto = new image_dto_1.ImageDto(brandName, currentTime);
+        const image = await this.repository.uploadFile(brandName, currentTime, file.buffer);
+        console.log(image);
+        const responseDto = new image_dto_1.ImageDto(undefined, brandName, currentTime, file.buffer);
         responseDto.message = 'File uploaded successfully';
-        responseDto.path = uploadPath;
+        responseDto.textImage = responseText;
+        responseDto.file = await this.repository.getFile(brandName, currentTime);
         const records = await this.repository.getAllRecords();
-        responseDto.allRecords = records.map((record) => new image_dto_1.ImageDto(record.brandName, record.timestamp));
+        responseDto.allRecords = records.map((record) => new image_dto_1.ImageDto(record.id, record.brandName, record.timestamp, record.file));
         return responseDto;
     }
     async findAll() {
         const records = await this.repository.getAllRecords();
-        return records.map((record) => new image_dto_1.ImageDto(record.brandName, record.timestamp));
+        const responseDto = records.map((record) => new image_dto_1.ImageDto(record.id, record.brandName, record.timestamp, record.file));
+        return responseDto;
     }
 };
 exports.ImagesService = ImagesService;

@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageDto = void 0;
 class ImageDto {
-    constructor(brandName, timestamp) {
+    constructor(id, brandName, timestamp, file) {
+        this.id = id;
         this.brandName = brandName;
         this.timestamp = timestamp;
+        this.file = file;
     }
 }
 exports.ImageDto = ImageDto;

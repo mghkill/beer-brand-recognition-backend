@@ -20,12 +20,16 @@ let ImageRepository = class ImageRepository {
     constructor(imageModel) {
         this.imageModel = imageModel;
     }
-    async uploadFile(brandName, timestamp) {
-        const record = new this.imageModel({ brandName, timestamp });
+    async uploadFile(brandName, timestamp, fileBuffer) {
+        const record = new this.imageModel({ brandName, timestamp, file: fileBuffer });
         return await record.save();
     }
     async getAllRecords() {
         return await this.imageModel.find().exec();
+    }
+    async getFile(brandName, timestamp) {
+        const record = await this.imageModel.findOne({ brandName, timestamp });
+        return record.file;
     }
 };
 exports.ImageRepository = ImageRepository;

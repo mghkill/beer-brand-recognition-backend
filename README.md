@@ -35,26 +35,49 @@ Este projeto utiliza uma arquitetura de microserviços, onde dois serviços prin
 
 Siga estas etapas para rodar a aplicação em sua máquina local após clonar o repositório.
 
-### 📋 Pré-requisitos
+# Pré-requisitos
 
-- [Docker](https://www.docker.com/products/docker-desktop) (versão estável)
-- [Docker Compose](https://docs.docker.com/compose/) (geralmente incluído com o Docker)
+Para executar o projeto, você precisará ter os seguintes pré-requisitos instalados:
 
-### 🛠️ Instalação
+### Ferramentas
+
+- **Docker**: Versão estável
+- **Docker Compose**: Geralmente incluído com o Docker
+- **Git**: Para clonar o repositório
+- **Node.js**: Para rodar o microserviço NestJS
+- **Python**: Para rodar o microserviço Flask
+- **MongoDB**: Para armazenar os dados
+
+### 🛠️ Instalação das dependências
 
 1. **Clone o repositório**:
 
    ```bash
 
-   git clone <URL do repositório>
+   git clone git@github.com:mghkill/beer-brand-recognition-backend.git
 
    cd beer-brand-recognition-backend
 
    ```
 
-2. **Inicie a aplicação:**:
+2. **Verifique se o Docker está ativo:**
 
-   Execute o seguinte comando para construir a imagem e iniciar o contêiner:
+   Execute os seguintes comandos para saber a versão e se o Docker está funcionando corretamente:
+   
+
+   ```bash
+
+   docker --version
+
+   docker hello
+
+   ```
+   Se o Docker estiver ativo, você verá a mensagem de boas-vindas do Docker.
+
+
+3. **Inicie a aplicação:**:
+
+   Execute o seguinte comando para construir a imagem e iniciar os contêiners:
 
    ```bash
 
@@ -62,7 +85,8 @@ Siga estas etapas para rodar a aplicação em sua máquina local após clonar o 
 
    ```
 
-3. **Parar a aplicação:**:
+
+4. **Parar a aplicação:**:
 
    Para parar a aplicação, utilize:
 

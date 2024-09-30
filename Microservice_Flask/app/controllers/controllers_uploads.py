@@ -5,12 +5,10 @@ from app.services.services_uploads import handle_upload, handle_error
 def create_uploads():
      
     file = request.files.get('file') 
-    
-    if file:
-       
-        print(f"File received: {file.filename}")
 
-      
+   
+
+    if file:
         response_data, status = handle_upload(file)
         return jsonify(response_data), status
     else:

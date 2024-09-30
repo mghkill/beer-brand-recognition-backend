@@ -1,12 +1,17 @@
-export class ImageDto {  
-  brandName: string;  
-  timestamp: Date;  
-  path?: string;  
-  message?: string;  
-  allRecords?: ImageDto[];  
+export class ImageDto {
+  id: string;
+  brandName: string;
+  timestamp: Date;
+  path?: string;
+  message?: string;
+  allRecords?: ImageDto[];
+  textImage?: string;
+  file?: Buffer;
 
-  constructor(brandName: string, timestamp: Date) {  
-      this.brandName = brandName;  
-      this.timestamp = timestamp;  
-  }  
+  constructor(id: string, brandName: string, timestamp: Date, file: Buffer) {
+    this.id = id;
+    this.brandName = brandName;
+    this.timestamp = timestamp;
+    this.file = file;
+  }
 }
