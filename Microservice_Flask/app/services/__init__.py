@@ -10,5 +10,5 @@ possible_key_error = {
     }
 }, HTTPStatus.BAD_REQUEST
 
-# Exportando as funções e constantes
+
 __all__ = ['serialize_number', 'possible_key_error']
