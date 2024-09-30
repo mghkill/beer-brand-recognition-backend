@@ -5,7 +5,11 @@ from http import HTTPStatus
 from app.services import possible_key_error, serialize_image
 import re
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+""" 
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe' 
+
+"""
 
 def handle_upload(data):
     try:
