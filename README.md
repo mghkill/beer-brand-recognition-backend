@@ -37,7 +37,7 @@ Este projeto utiliza uma arquitetura de microserviços, onde dois serviços prin
 
 ## API 1 - Microserviço NestJS
 
-      http://localhost:3333/
+      http://localhost:3333/upload
 
 - Métodos:
 
