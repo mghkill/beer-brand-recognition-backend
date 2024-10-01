@@ -118,15 +118,7 @@ Para executar o projeto, você precisará ter os seguintes pré-requisitos insta
 
    ```
 
-   4. **Parar a aplicação:**:
 
-   Para parar a aplicação, utilize:
-
-   ```bash
-
-    docker-compose down
-
-   ```
 
 # 📖 Documentação da API
 
