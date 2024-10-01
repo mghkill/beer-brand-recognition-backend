@@ -4,6 +4,7 @@ import { ImagesService } from './images.service';
 import { ImageRepository } from './Mongo/Repositories/image.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ImageSchema } from './Mongo/Schemas/image.schema';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -11,6 +12,6 @@ import { ImageSchema } from './Mongo/Schemas/image.schema';
     MongooseModule.forFeature([{ name: 'image', schema: ImageSchema }]),
   ],
   controllers: [ImagesController],
-  providers: [ImagesService, ImageRepository],
+  providers: [ImagesService, ImageRepository, ConfigService],
 })
 export class ImagesModule {}

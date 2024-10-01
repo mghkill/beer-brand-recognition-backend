@@ -29,7 +29,7 @@ export class ImagesService {
     });
 
     try {
-      const response = await axios.post('http://api:5000/upload', formData);
+      const response = await axios.post(`http://api:5000/upload`, formData);
       responseText = response.data.Text;
     } catch (error) {
       console.error(
