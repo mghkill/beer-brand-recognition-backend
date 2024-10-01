@@ -15,9 +15,9 @@ WORKDIR /api
 
 COPY requirements.txt .
 
-COPY .env .env
+# COPY .env .env
 
-ENV $(cat .env | tr '\n' ' ')
+# ENV $(cat .env | tr '\n' ' ')
 
 COPY . .
 

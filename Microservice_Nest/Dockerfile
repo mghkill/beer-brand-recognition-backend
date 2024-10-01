@@ -10,9 +10,9 @@ COPY package*.json ./
 
 RUN rm -rf node_modules
 
-COPY .env .env
+# COPY .env .env
 
-ENV $(cat .env | tr '\n' ' ')
+# ENV $(cat .env | tr '\n' ' ')
 
 COPY . .
 
