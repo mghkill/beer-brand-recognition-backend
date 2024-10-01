@@ -37,19 +37,19 @@ Este projeto utiliza uma arquitetura de microserviços, onde dois serviços prin
 
 ## API 1 - Microserviço NestJS
 
-      * URL: `http://localhost:3333/`
+      http://localhost:3333/
 
 - Métodos:
 
   - `GET`: retorna informações da API
   - `POST`: recebe uma imagem em Multipart com o name `file` e o value igual a uma extensão de imagem (por exemplo, `.jpg`, `.png`, etc.)
 
-  ## API 2 - Microserviço Flask
+## API 2 - Microserviço Flask
 
-      
-      * URL: `http://127.0.0.1:5000/upload`
- - Método: 
-   - `POST` Corpo da requisição: arquivo de imagem em Multipart
+       http://127.0.0.1:5000/upload
+
+- Método:
+  - `POST` Corpo da requisição: arquivo de imagem em Multipart
 
 =====================================
 
