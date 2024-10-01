@@ -69,7 +69,7 @@ Para executar o projeto, você precisará ter os seguintes pré-requisitos insta
 
    docker --version
 
-   docker hello
+   docker run hello-world
 
    ```
    Se o Docker estiver ativo, você verá a mensagem de boas-vindas do Docker.
