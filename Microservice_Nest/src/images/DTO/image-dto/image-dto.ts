@@ -6,9 +6,9 @@ export class ImageDto {
   message?: string;
   allRecords?: ImageDto[];
   textImage?: string;
-  file?: Buffer;
+  file?: string; 
 
-  constructor(id: string, brandName: string, timestamp: Date, file: Buffer) {
+  constructor(id: string, brandName: string, timestamp: Date, file: string) {
     this.id = id;
     this.brandName = brandName;
     this.timestamp = timestamp;
