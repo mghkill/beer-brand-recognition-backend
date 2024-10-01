@@ -31,6 +31,28 @@ Este projeto utiliza uma arquitetura de microserviços, onde dois serviços prin
      - Processa a imagem utilizando técnicas de reconhecimento óptico de caracteres (OCR).
      - Retorna os dados extraídos de volta ao NestJS.
 
+=====================================
+
+# Acessando as APIs
+
+## API 1 - Microserviço NestJS
+
+      * URL: `http://localhost:3333/`
+
+- Métodos:
+
+  - `GET`: retorna informações da API
+  - `POST`: recebe uma imagem em Multipart com o name `file` e o value igual a uma extensão de imagem (por exemplo, `.jpg`, `.png`, etc.)
+
+  ## API 2 - Microserviço Flask
+
+      
+      * URL: `http://127.0.0.1:5000/upload`
+ - Método: 
+   - `POST` Corpo da requisição: arquivo de imagem em Multipart
+
+=====================================
+
 ## 🚀 Começando
 
 Siga estas etapas para rodar a aplicação em sua máquina local após clonar o repositório.
@@ -63,7 +85,6 @@ Para executar o projeto, você precisará ter os seguintes pré-requisitos insta
 2. **Verifique se o Docker está ativo:**
 
    Execute os seguintes comandos para saber a versão e se o Docker está funcionando corretamente:
-   
 
    ```bash
 
@@ -72,8 +93,8 @@ Para executar o projeto, você precisará ter os seguintes pré-requisitos insta
    docker run hello-world
 
    ```
-   Se o Docker estiver ativo, você verá a mensagem de boas-vindas do Docker.
 
+   Se o Docker estiver ativo, você verá a mensagem de boas-vindas do Docker.
 
 3. **Inicie a aplicação:**:
 
@@ -85,7 +106,6 @@ Para executar o projeto, você precisará ter os seguintes pré-requisitos insta
 
    ```
 
-
 4. **Parar a aplicação:**:
 
    Para parar a aplicação, utilize:
@@ -96,7 +116,17 @@ Para executar o projeto, você precisará ter os seguintes pré-requisitos insta
 
    ```
 
-   ## 📖 Documentação da API
+   4. **Parar a aplicação:**:
+
+   Para parar a aplicação, utilize:
+
+   ```bash
+
+    docker-compose down
+
+   ```
+
+# 📖 Documentação da API
 
 ### Como Funciona
 
